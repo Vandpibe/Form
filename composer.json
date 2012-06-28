@@ -1,7 +1,7 @@
 {
-    "name" : "vandpibe/skeleton",
+    "name" : "vandpibe/form",
     "type" : "library",
-    "description" : "Skeleton",
+    "description" : "form",
     "license" : "MIT",
     "authors" : [{
         "name" : "Henrik Bjornskov",
@@ -9,12 +9,16 @@
     }],
     "autoload" : {
         "psr-0" : {
-            "Vandpibe\\Skeleton" : "lib"
+            "Vandpibe\\Form" : "lib"
         }
     },
     "require" : {
-        "php"                : ">=5.3.3"
+        "php"                : ">=5.3.3",
+        "symfony/form"       : "2.1.*",
+        "symfony/security"   : "2.1.*"
     },
     "require-dev" : {
+        "symfony/dependency-injection" : "2.1.*",
+        "symfony/config"               : "2.1.*"
     }
 }

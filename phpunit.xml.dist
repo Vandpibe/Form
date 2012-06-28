@@ -12,8 +12,8 @@
          bootstrap="vendor/autoload.php">
 
     <testsuites>
-        <testsuite name="Vandpibe Skeleton Test Suite">
-            <directory>./tests/Vandpibe/Test/Skeleton</directory>
+        <testsuite name="Vandpibe form Test Suite">
+            <directory>./tests/Vandpibe/Test/form</directory>
         </testsuite>
     </testsuites>
 
@@ -22,7 +22,7 @@
             <directory>./</directory>
             <exclude>
                 <directory>./tests</directory>
-                <directory>./lib/Vandpibe/Skeleton/*/Resources</directory>
+                <directory>./lib/Vandpibe/form/*/Resources</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>
