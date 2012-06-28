@@ -1,0 +1,20 @@
+{
+    "name" : "vandpibe/skeleton",
+    "type" : "library",
+    "description" : "Skeleton",
+    "license" : "MIT",
+    "authors" : [{
+        "name" : "Henrik Bjornskov",
+        "email" : "henrik@bjrnskov.dk"
+    }],
+    "autoload" : {
+        "psr-0" : {
+            "Vandpibe\\Skeleton" : "lib"
+        }
+    },
+    "require" : {
+        "php"                : ">=5.3.3"
+    },
+    "require-dev" : {
+    }
+}
