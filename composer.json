@@ -14,12 +14,12 @@
     },
     "require" : {
         "php"                : ">=5.3.3",
-        "symfony/form"       : "2.1.*",
-        "symfony/security"   : "2.1.*"
+        "symfony/form"       : "2.1.*@dev",
+        "symfony/security"   : "2.1.*@dev"
     },
     "require-dev" : {
-        "symfony/dependency-injection" : "2.1.*",
-        "symfony/config"               : "2.1.*",
+        "symfony/dependency-injection" : "2.1.*@dev",
+        "symfony/config"               : "2.1.*@dev",
         "mockery/mockery"              : "0.7.*"
     }
 }
