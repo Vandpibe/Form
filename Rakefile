@@ -9,3 +9,5 @@ namespace :test do
     system "phpunit --coverage-html=coverage"
   end
 end
+
+task :default => 'test:run'
