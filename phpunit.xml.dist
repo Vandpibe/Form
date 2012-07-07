@@ -13,7 +13,7 @@
 
     <testsuites>
         <testsuite name="Vandpibe form Test Suite">
-            <directory>./tests/Vandpibe/Test/form</directory>
+            <directory>./tests/Vandpibe/Test/Form</directory>
         </testsuite>
     </testsuites>
 
@@ -26,7 +26,7 @@
             <directory>./</directory>
             <exclude>
                 <directory>./tests</directory>
-                <directory>./lib/Vandpibe/form/*/Resources</directory>
+                <directory>./lib/Vandpibe/Form/*/Resources</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>
