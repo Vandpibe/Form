@@ -2,79 +2,40 @@
 
 namespace Vandpibe\Test\Form\EventListener;
 
-use Vandpibe\Form\EventListener\AuthenticationSubscriber;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Security\Core\Exception\AuthenticationException; 
+use Symfony\Component\Security\Core\SecurityContextInterface;
+use Vandpibe\Form\EventListener\AuthenticationSubscriber;
 
 /**
  * @author Henrik Bjornskov <henrik@bjrnskov.dk>
  */
-class AuthenticationSubscriberTest extends \PHPUnit_Framework_TestCase
+class AuthenticationSubscriberTest extends \Vandpibe\Test\TestCase
 {
     public function setUp()
     {
-        $this->event = $this->getMockBuilder('Symfony\Component\Form\Event\FilterDataEvent')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
-        $this->session = $this->getMock('Symfony\Component\HttpFoundation\Session\SessionInterface');
-
+        $this->session = $this->mock('Symfony\Component\HttpFoundation\Session\SessionInterface');
         $this->subscriber = new AuthenticationSubscriber($this->session);
     }
 
     public function testOnFormSetData()
     {
-        $exception = $this->getMockBuilder('Symfony\Component\Security\Core\Exception\AuthenticationException')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $exception = new AuthenticationException('Authentication Failed for reasons unknown to man.');
 
-        $form = $this->getMockBuilder('Symfony\Component\Form\Form')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        $form = $this->mock('Symfony\Component\Form\Form');
+        $form->shouldReceive('addError')->once()->withAnyArgs();
 
-        $form
-            ->expects($this->once())
-            ->method('addError')
-        ;
+        $this->session->shouldReceive('get')->with(SecurityContextInterface::AUTHENTICATION_ERROR)->andReturn($exception);
+        $this->session->shouldReceive('remove')->with(SecurityContextInterface::AUTHENTICATION_ERROR);
+        $this->session->shouldReceive('get')->with(SecurityContextInterface::LAST_USERNAME)->andReturn('last-username');
 
-        $this->event
-            ->expects($this->once())
-            ->method('getForm')
-            ->will($this->returnValue($form))
-        ;
+        $event = $this->mock('Symfony\Component\Form\Event\FilterDataEvent');
+        $event->shouldReceive('getForm')->once()->andReturn($form);
+        $event->shouldReceive('setData')->once()->with(array(
+            '_username' => 'last-username',
+        ));
 
-        $this->session
-            ->expects($this->at(0))
-            ->method('get')
-            ->with($this->equalTo(SecurityContextInterface::AUTHENTICATION_ERROR))
-            ->will($this->returnValue($exception))
-        ;
-
-        $this->session
-            ->expects($this->at(1))
-            ->method('remove')
-            ->with($this->equalTo(SecurityContextInterface::AUTHENTICATION_ERROR))
-        ;
-
-        $this->session
-            ->expects($this->at(2))
-            ->method('get')
-            ->with($this->equalTo(SecurityContextInterface::LAST_USERNAME))
-            ->will($this->returnValue('my-username'))
-        ;
-
-        $this->event
-            ->expects($this->once())
-            ->method('setData')
-            ->with($this->equalTo(array(
-                '_username' => 'my-username',
-            )))
-        ;
-
-        $this->subscriber->onFormSetData($this->event);
+        $this->subscriber->onFormSetData($event);
 
     }
 

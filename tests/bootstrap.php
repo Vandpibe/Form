@@ -1,4 +1,5 @@
 <?php
 
-$autoload = require __DIR__ . '/../composer/autoload.php';
-$autoload->register('Vandpibe\Test\Form', __DIR__);
+$autoload = require __DIR__ . '/../vendor/autoload.php';
+$autoload->add('Vandpibe\Test', __DIR__);
+$autoload->register();
