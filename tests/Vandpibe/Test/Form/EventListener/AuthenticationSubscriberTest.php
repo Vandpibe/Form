@@ -10,7 +10,7 @@ use Vandpibe\Form\EventListener\AuthenticationSubscriber;
 /**
  * @author Henrik Bjornskov <henrik@bjrnskov.dk>
  */
-class AuthenticationSubscriberTest extends \Vandpibe\Test\TestCase
+class AuthenticationSubscriberTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
@@ -29,7 +29,7 @@ class AuthenticationSubscriberTest extends \Vandpibe\Test\TestCase
         $this->session->shouldReceive('remove')->with(SecurityContextInterface::AUTHENTICATION_ERROR);
         $this->session->shouldReceive('get')->with(SecurityContextInterface::LAST_USERNAME)->andReturn('last-username');
 
-        $event = $this->mock('Symfony\Component\Form\Event\FilterDataEvent');
+        $event = $this->mock('Symfony\Component\Form\FormEvent');
         $event->shouldReceive('getForm')->once()->andReturn($form);
         $event->shouldReceive('setData')->once()->with(array(
             '_username' => 'last-username',
@@ -42,7 +42,12 @@ class AuthenticationSubscriberTest extends \Vandpibe\Test\TestCase
     public function testSubscribedEvents()
     {
         $this->assertEquals(array(
-            FormEvents::SET_DATA => 'onFormSetData',
+            FormEvents::PRE_SET_DATA => 'onFormSetData',
         ), AuthenticationSubscriber::getSubscribedEvents());
+    }
+
+    public function mock()
+    {
+        return call_user_func_array(array('Mockery', 'mock'), func_get_args());
     }
 }

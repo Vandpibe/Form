@@ -3,7 +3,6 @@
     "type" : "library",
     "description" : "form",
     "license" : "MIT",
-    "minimum-stability" : "dev",
     "authors" : [{
         "name" : "Henrik Bjornskov",
         "email" : "henrik@bjrnskov.dk"
@@ -15,12 +14,12 @@
     },
     "require" : {
         "php"                : ">=5.3.3",
-        "symfony/form"       : "2.1.*",
-        "symfony/security"   : "2.1.*"
+        "symfony/form"       : "~2.2",
+        "symfony/security"   : "~2.2"
     },
     "require-dev" : {
-        "symfony/dependency-injection" : "2.1.*",
-        "symfony/config"               : "2.1.*",
+        "symfony/dependency-injection" : "~2.2",
+        "symfony/config"               : "~2.2",
         "mockery/mockery"              : "0.7.*"
     }
 }

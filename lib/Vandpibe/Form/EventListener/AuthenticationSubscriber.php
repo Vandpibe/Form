@@ -2,7 +2,7 @@
 
 namespace Vandpibe\Form\EventListener;
 
-use Symfony\Component\Form\Event\FilterDataEvent;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -27,9 +27,9 @@ class AuthenticationSubscriber implements \Symfony\Component\EventDispatcher\Eve
     }
 
     /**
-     * @param FilterDataEvent $event
+     * @param FormEvent $event
      */
-    public function onFormSetData(FilterDataEvent $event)
+    public function onFormSetData(FormEvent $event)
     {
         $error = $this->session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
 
@@ -51,7 +51,7 @@ class AuthenticationSubscriber implements \Symfony\Component\EventDispatcher\Eve
     public static function getSubscribedEvents()
     {
         return array(
-            FormEvents::SET_DATA => 'onFormSetData',
+            FormEvents::PRE_SET_DATA => 'onFormSetData',
         );
     }
 }
